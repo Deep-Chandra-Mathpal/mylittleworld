@@ -1,14 +1,66 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>Solar System - p5.js</title>
-  <style>
-    body { margin:0; overflow:hidden; background:black; }
-  </style>
+  <meta charset="UTF-8" />
+  <title>Mini Solar System</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
 </head>
-<body>
-  <script src="sketch.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
+<body style="margin:0; background:black;">
+
+<script>
+// ---------------- Solar System in Single File ----------------
+
+// Planet data: name, distance, size, speed
+let planets = [
+  { name: "Mercury", r: 40, size: 6, speed: 0.04, angle: 0 },
+  { name: "Venus",   r: 70, size: 9, speed: 0.03, angle: 0 },
+  { name: "Earth",   r: 100, size: 10, speed: 0.025, angle: 0 },
+  { name: "Mars",    r: 130, size: 8, speed: 0.02, angle: 0 },
+  { name: "Jupiter", r: 180, size: 18, speed: 0.01, angle: 0 },
+  { name: "Saturn",  r: 230, size: 16, speed: 0.009, angle: 0 },
+  { name: "Uranus",  r: 280, size: 12, speed: 0.006, angle: 0 },
+  { name: "Neptune", r: 330, size: 12, speed: 0.005, angle: 0 }
+];
+
+function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+function draw() {
+  background(0);
+
+  translate(width / 2, height / 2);
+
+  // Sun
+  noStroke();
+  fill(255, 180, 0);
+  ellipse(0, 0, 60, 60);
+
+  // Orbits + Planets
+  for (let p of planets) {
+    noFill();
+    stroke(80);
+    ellipse(0, 0, p.r * 2, p.r * 2);
+
+    let x = cos(p.angle) * p.r;
+    let y = sin(p.angle) * p.r;
+
+    noStroke();
+    fill(255);
+    ellipse(x, y, p.size, p.size);
+
+    fill(200);
+    textSize(12);
+    text(p.name, x + 10, y);
+
+    p.angle += p.speed;
+  }
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+</script>
+
 </body>
 </html>
