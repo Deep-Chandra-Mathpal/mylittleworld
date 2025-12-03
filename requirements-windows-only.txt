@@ -1,0 +1,278 @@
+# Python Hacking Course - WINDOWS ONLY Requirements
+# Version: 1.0
+# Last Updated: December 2024
+# Compatibility: Windows 10 Build 19041+ and Windows 11
+
+# ============================================================
+# PYTHON VERSION
+# ============================================================
+# Required: Python 3.9 or higher
+# Download from: https://www.python.org/downloads/
+# Choose: Windows installer (64-bit)
+# During installation: CHECK "Add Python to PATH"
+
+# ============================================================
+# CORE SECURITY LIBRARIES
+# ============================================================
+
+# Cryptography and hashing
+cryptography>=41.0.0          # Modern cryptography
+pycryptodome>=3.18.0          # PyCrypto fork with AES, RSA, etc.
+hashlib                        # Built-in, no install needed
+
+# Web security and requests
+requests>=2.31.0              # HTTP library
+beautifulsoup4>=4.12.0        # HTML/XML parsing
+urllib3>=2.0.0                # HTTP client
+selenium>=4.13.0              # Browser automation (for XSS testing)
+
+# ============================================================
+# NETWORKING
+# ============================================================
+
+# Note: Scapy has limited Windows support, use alternatives
+scapy>=2.5.0                  # Packet manipulation (basic support)
+# For Windows: Consider pyshark (Wireshark interface) instead
+
+# DNS and network utilities
+dnspython>=2.4.0              # DNS manipulation
+paramiko>=3.3.0               # SSH client
+
+# ============================================================
+# ENCODING AND DATA PROCESSING
+# ============================================================
+
+colorama>=0.4.6               # Colored terminal output on Windows
+pyyaml>=6.0                   # YAML parsing
+json                           # Built-in, no install needed
+base64                         # Built-in, no install needed
+
+# ============================================================
+# BINARY ANALYSIS (Windows)
+# ============================================================
+
+capstone>=5.0.0               # Disassembly (works on Windows)
+keystone-engine>=0.9.2        # Assembler (works on Windows)
+
+# Note: Full reverse engineering tools need more setup:
+# - IDA Pro (commercial)
+# - Ghidra (requires Java, can be installed on Windows)
+# - x64dbg (Windows debugger, download separately)
+# - OllyDbg (Windows debugger, download separately)
+
+# ============================================================
+# DATABASE
+# ============================================================
+
+sqlite3                        # Built-in, no install needed
+pymysql>=1.1.0                # MySQL client
+psycopg2-binary>=2.9.0        # PostgreSQL client
+# SQL Server: pip install pyodbc
+
+# ============================================================
+# DEVELOPMENT TOOLS
+# ============================================================
+
+pytest>=7.4.0                 # Testing framework
+black>=23.9.0                 # Code formatter
+pylint>=3.0.0                 # Code linter
+autopep8>=2.0.0               # Code formatter
+
+# ============================================================
+# UTILITIES
+# ============================================================
+
+numpy>=1.24.0                 # Numerical computing
+pandas>=2.1.0                 # Data analysis
+matplotlib>=3.8.0             # Plotting and visualization
+
+# ============================================================
+# WINDOWS-SPECIFIC NOTES
+# ============================================================
+
+"""
+Installation Instructions for Windows:
+
+1. INSTALL PYTHON:
+   - Download: https://www.python.org/downloads/
+   - Run installer
+   - CHECK: "Add Python to PATH"
+   - Verify: Open PowerShell and run: python --version
+
+2. CREATE VIRTUAL ENVIRONMENT:
+   PowerShell (as Administrator):
+   
+   cd C:\Users\YourUsername\Documents
+   mkdir python-hacking-course
+   cd python-hacking-course
+   python -m venv venv
+   .\venv\Scripts\Activate.ps1
+   
+   If you get an error:
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+3. INSTALL REQUIREMENTS:
+   pip install --upgrade pip
+   pip install -r requirements-windows-only.txt
+
+4. OPTIONAL TOOLS (Install separately):
+   
+   a) Wireshark (Packet capture):
+      - Download: https://www.wireshark.org/
+      - Or: winget install Wireshark.Wireshark
+   
+   b) Git for Windows:
+      - Download: https://git-scm.com/download/win
+      - Or: winget install Git.Git
+   
+   c) Visual Studio Code:
+      - Download: https://code.visualstudio.com/
+      - Or: winget install Microsoft.VisualStudioCode
+   
+   d) Notepad++:
+      - Download: https://notepad-plus-plus.org/
+      - Or: winget install Notepad++.Notepad++
+   
+   e) 7-Zip:
+      - Download: https://www.7-zip.org/
+      - Or: winget install 7zip.7zip
+
+5. VERIFY INSTALLATION:
+   python -c "import cryptography; import requests; print('✓ All OK')"
+
+6. START LEARNING:
+   - Open Module 1: 01_MODULE_PYTHON_SECURITY_BASICS.md
+   - Try the examples in PowerShell
+   - Progress through modules sequentially
+"""
+
+# ============================================================
+# WINDOWS BUILTIN COMMANDS (NO INSTALL NEEDED)
+# ============================================================
+
+"""
+These commands are built into Windows and don't need Python:
+
+Network analysis:
+  ipconfig /all              # Network config
+  netstat -ano               # Network connections
+  nslookup example.com       # DNS lookup
+  tracert example.com        # Traceroute
+  ping example.com           # ICMP echo
+
+Process management:
+  tasklist                   # List processes
+  tasklist /v                # Detailed processes
+  taskkill /PID [pid]        # Kill process
+  wmic process list          # Process details
+
+System information:
+  systeminfo                 # System info
+  wmic OS get Caption        # Windows version
+  wmic service list          # List services
+  sc query                   # Service query
+
+File analysis:
+  dir /s                     # List files
+  findstr /R "pattern" file  # Search files
+  certutil -hashfile file    # Calculate hash
+  
+Registry:
+  reg query HKCU             # Query registry
+  regedit                    # Registry editor (GUI)
+"""
+
+# ============================================================
+# WINDOWS API CALLS (Via ctypes - No install needed)
+# ============================================================
+
+"""
+Python's ctypes module allows direct Windows API calls:
+
+from ctypes import windll
+
+Examples:
+  windll.kernel32.GetCurrentProcessId()
+  windll.kernel32.Sleep(1000)
+  windll.user32.MessageBoxW(0, "Message", "Title", 0)
+  
+See Windows API documentation at:
+  https://docs.microsoft.com/en-us/windows/win32/
+"""
+
+# ============================================================
+# TROUBLESHOOTING
+# ============================================================
+
+"""
+Common Issues on Windows:
+
+1. pip command not found:
+   - Python not in PATH
+   - Solution: Reinstall Python, check "Add Python to PATH"
+
+2. Module import errors:
+   - Packages not installed
+   - Solution: Run pip install -r requirements-windows-only.txt
+
+3. Permission denied errors:
+   - Run PowerShell as Administrator
+   - Or: Check file permissions
+
+4. Scapy limited functionality:
+   - Windows Scapy has reduced features
+   - Solution: Use Wireshark for packet capture
+   - Or: Use pyshark wrapper
+
+5. pyodbc errors:
+   - Microsoft ODBC driver not installed
+   - Solution: Download ODBC driver or skip
+
+6. Virtual environment activation issues:
+   - ExecutionPolicy error
+   - Solution: Run: Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+For more help:
+  - Python docs: https://docs.python.org/3/
+  - Module docs: Check package PyPI pages
+  - Stack Overflow: Search for "windows python [error]"
+"""
+
+# ============================================================
+# MINIMAL INSTALLATION (If space is limited)
+# ============================================================
+
+"""
+If you want minimal setup, install only these:
+
+pip install requests cryptography colorama
+
+This gives you:
+  - Web requests
+  - Cryptography
+  - Colored output
+  - Core functionality for learning
+
+Then install other packages as needed per module.
+"""
+
+# ============================================================
+# SECURITY NOTE
+# ============================================================
+
+"""
+⚠️ IMPORTANT SECURITY NOTES:
+
+1. Only test on systems you own or have authorization
+2. Never test on production systems without permission
+3. These tools can be dangerous if misused
+4. Use in isolated lab environment
+5. Follow all local laws and regulations
+6. Document all activities for authorized testing
+
+⚠️ LEGAL WARNING:
+
+Unauthorized access to computer systems is ILLEGAL.
+This course is for EDUCATIONAL and AUTHORIZED TESTING ONLY.
+The author is not responsible for misuse of this material.
+"""
